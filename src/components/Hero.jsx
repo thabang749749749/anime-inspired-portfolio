@@ -60,13 +60,9 @@ const Hero = () => {
             <div className="services-list">
               <div className="service-item" style={{ backgroundColor: 'rgba(31, 41, 55, 0.5)' }}>
                 <h3><u><b>Who am I?</b></u></h3>
-                <p ref={introRef} id="intro">My name is Thabang Xaba, I'm a self-taught IT Specialist with a passion for solving
-                   complex problems and building efficient, secure systems.
-                  With hands-on experience in hardware, networking, cybersecurity,
-                  and software development, I've built my expertise through curiosity,
-                  real-world practice, and a relentless drive to learn.
-                  Whether it's optimizing infrastructure, automating tasks with code,
-                  or providing support that actually helps — I make technology work for people.
+                <p ref={introRef} id="intro">My name is Thabang Xaba, a self-taught IT Specialist with a passion for solving complex problems and building efficient, secure systems. I’ve gained hands-on experience across hardware, networking, cybersecurity, and software development — fueled by curiosity, real-world challenges, and a relentless drive to grow.
+
+                  In addition to self-guided learning, I’ve strengthened my skills through structured training, including a learnership at E-mbizo and practical development experience at the FNB App Academy. Whether it’s optimizing infrastructure, automating tasks with code, or offering tech support that truly helps — I focus on making technology work for people.
                   <br />
                   I don't just troubleshoot — I future-proof.</p>
               </div>
