@@ -1,73 +1,86 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const Hero = () => {
   const introRef = useRef();
   const projectsRef = useRef();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   useGSAP(() => {
     const timeline = gsap.timeline();
-
-    // Intro animation
-    timeline.fromTo(
-      introRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.5, stagger: 0.06 }
-    );
 
     // Projects animation - starts after intro animation completes
     timeline.fromTo(
       projectsRef.current,
       { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", stagger: 0.2 },
-      "+=0.2" // Slight delay after intro animation
+      { opacity: 1, x: 0, duration: 1, ease: "power2.out", delay: 0.5, stagger: 0.6 }
     );
-  }, []);
+
+    // Intro animation - different behavior for mobile and desktop
+    if (isMobile) {
+      // On mobile, use ScrollTrigger to activate animation on scroll
+      gsap.fromTo(
+        introRef.current,
+        { opacity: 0, y: 20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          stagger: 0.06,
+          scrollTrigger: {
+            trigger: "#intro", // Using the ID selector for better targeting
+            start: "top 80%", // Start animation when the top of the element is 80% from the top of the viewport
+            toggleActions: "play none none none",
+            markers: false, // Set to true during development to see the trigger points
+            once: false // Allow the animation to replay if scrolled back up and down again
+          }
+        }
+      );
+    } else {
+      // On desktop, keep the original timeline animation
+      timeline.fromTo(
+        introRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.06 }
+      );
+    }
+  }, [isMobile]);
 
   return (
     <>
       <section 
         id="hero" 
-        className="pt-16" 
-        style={{
-          position: 'relative',
-          backgroundColor: 'rgb(17 24 39)'
-        }}
+        className="pt-16"
       >
         {/* Background image overlay for entire hero section */}
-        <div 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundImage: 'url("/images/unsplash.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.2, // 20% opacity as required
-            zIndex: 0
-          }}
-        ></div>
+        <div className="hero-background-overlay"></div>
 
-        <div className="hero-layout" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="hero-layout">
           {/* Left column - Services */}
-          <div className="services-column" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+          <div className="services-column">
             <div>
               <h2>Welcome to my Portfolio</h2>
             </div>
             <div className="services-list">
-              <div className="service-item" style={{ backgroundColor: 'rgba(31, 41, 55, 0.5)' }}>
-                <h3><u><b>Who am I?</b></u></h3>
-                <p ref={introRef} id="intro">My name is Thabang Xaba, a self-taught IT Specialist with a passion for solving complex problems and building efficient, secure systems. I’ve gained hands-on experience across hardware, networking, cybersecurity, and software development — fueled by curiosity, real-world challenges, and a relentless drive to grow.
-
-                  In addition to self-guided learning, I’ve strengthened my skills through structured training, including a learnership at E-mbizo and practical development experience at the FNB App Academy. Whether it’s optimizing infrastructure, automating tasks with code, or offering tech support that truly helps — I focus on making technology work for people.
-                  <br />
-                  I don't just troubleshoot — I future-proof.</p>
-              </div>
-
-              <div className="service-item" id="projects"  style={{ backgroundColor: 'rgba(31, 41, 55, 0.5)' }}>
+              <div className="service-item" >
                 <div>
                   <h3><b><u>Services</u></b></h3>
                 </div>
@@ -79,6 +92,24 @@ const Hero = () => {
                   [ Maintenance & Debugging ] <br />
                   [ AI & Chatbot Integration ]
                 </p>
+              </div>
+
+              <div className="service-item">
+                <h3><u><b>Who am I?</b></u></h3>
+                <p ref={introRef} id="intro">My name is Thabang Xaba, a self-taught
+                  IT Specialist with a passion for solving complex problems and building
+                  efficient, secure systems. <br />I’ve gained hands-on experience across hardware,
+                  networking, cybersecurity, and software development — fueled by curiosity,
+                  real-world challenges, and a relentless drive to grow.<br />
+                  <br />
+                  In addition to self-guided learning, I’ve strengthened my skills
+                  through structured training, including a learnership at E-mbizo and
+                  practical development experience at the FNB App Academy.
+                  Whether it’s optimizing infrastructure, automating tasks with code,
+                  or offering tech support that truly helps — I focus on making technology
+                  work for people.
+                  <br />
+                  I don't just troubleshoot — I future-proof.</p>
               </div>
             </div>
           </div>
