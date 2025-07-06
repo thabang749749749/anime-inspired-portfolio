@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+
+
+@import "tailwindcss";
+
+body {
+    background-color: rgb(17 24 39);
+    color: white;
+    scroll-behavior: smooth;
+}
+
+@theme {
+    /* ... */
+}
+
+@layer components {
+    #hero {
+        @apply relative z-10 min-h-dvh w-full border border-transparent;
+
+        .hero-layout {
+            @apply grid grid-cols-1 md:grid-cols-[70%_30%] gap-8 p-8;
+        }
+
+        /* Left column - Services */
+        .services-column {
+            @apply relative bg-gray-800 rounded-lg p-6 overflow-hidden;
+        }
+
+        .services-column::before {
+            content: '';
+            @apply absolute inset-0;
+            background-image: url('/public/images/unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3; /* ← adjust as needed */
+            z-index: 0;
+        }
+
+        .services-column > * {
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+        h2 {
+                @apply text-3xl font-bold mb-6 text-cyan-400;
+            }
+
+            .services-list {
+                @apply space-y-6;
+            }
+
+            .service-item {
+                @apply p-4 bg-gray-700 rounded-lg;
+
+                h3 {
+                    @apply text-xl font-semibold text-purple-500;
+                }
+
+                p {
+                    @apply px-0.5 py-1.5 text-blue-400 font-medium;
+                }
+            }
+
+            #projects {
+                @apply p-4 bg-gray-700 rounded-lg inline-block;
+            }
+        }
+
+        /* Right column - Profile and Bio */
+        .profile-column {
+            @apply flex flex-col items-center;
+
+            .profile-section {
+                @apply text-center;
+
+                img {
+                    @apply size-50 rounded-full border-4 border-cyan-400 mb-4;
+                }
+
+                .profile-info {
+                    @apply flex flex-col items-center;
+                }
+            }
+
+            .bio {
+                @apply mt-3 mb-3 mr-2 md:mr-8 p-4 bg-gray-700 rounded-lg;
+
+                p {
+                    @apply text-blue-400 font-medium;
+                }
+            }
+
+
+        h1 {
+            @apply md:mt-32 mt-40 text-8xl md:text-[20vw] leading-none text-center;
+        }
+
+        .title {
+            @apply bg-gray-700 my-2.5 text-2xl font-mono text-cyan-400 mt-2;
+        }
+
+        #name-span {
+            @apply text-fuchsia-400 font-bold;
+        }
+
+        .job {
+            @apply text-green-400 font-medium text-center;
+        }
+
+        .dev-icons {
+            @apply flex gap-4 text-4xl mt-3 mb-3;
+        }
+    }
+}
