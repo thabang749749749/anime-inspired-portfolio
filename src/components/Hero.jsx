@@ -47,7 +47,7 @@ const Hero = () => {
           stagger: 0.06,
           scrollTrigger: {
             trigger: "#intro", // Using the ID selector for better targeting
-            start: "top 80%", // Start animation when the top of the element is 80% from the top of the viewport
+            start: "top 50%", // Start animation when the top of the element is 80% from the top of the viewport
             toggleActions: "play none none none",
             markers: false, // Set to true during development to see the trigger points
             once: false // Allow the animation to replay if scrolled back up and down again

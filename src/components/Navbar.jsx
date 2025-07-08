@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
-import { Home, Mail, Menu } from 'lucide-react';
+import { Home, Mail } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,22 +12,25 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-gray-800 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 relative">
           {/* Logo/Brand */}
           <div className="flex-shrink-0">
-            <h1 className="text-cyan-400 font-bold text-xl">[ <span
-              className="text-fuchsia-400">thabang_xaba</span> ]</h1>
+            <h1 className="text-cyan-400 font-bold text-xl hover:text-cyan-300 transition-colors duration-200">
+              [ <span className="text-fuchsia-400 hover:text-fuchsia-300">thabang_xaba</span> ]
+            </h1>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
-              <a href="#hero" className="text-gray-300 hover:text-cyan-400 px-3
-              py-2 rounded-md text-sm font-medium">Home</a>
-              <a href="#" className="text-gray-300 hover:text-cyan-400 px-3
-              py-2 rounded-md text-sm font-medium">Contact</a>
-            </div>
-          </div>
+          <ul className="hidden md:flex items-center space-x-6">
+            <li className="flex items-center gap-1 text-gray-300 hover:text-pink-400 cursor-pointer transition-colors duration-200">
+              <Home size={20} />
+              Home
+            </li>
+            <li className="flex items-center gap-1 text-gray-300 hover:text-pink-400 cursor-pointer transition-colors duration-200">
+              <Mail size={20} />
+              Mail Me
+            </li>
+          </ul>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -58,18 +61,22 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu, show/hide based on menu state */}
-      {isMenuOpen && (
-        <ul className="md:hidden flex flex-col gap-6 items-center p-4 bg-gray-800">
-          <li className="flex items-center gap-1 hover:text-pink-400">
-            <Home size={18} />
+      <div 
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          isMenuOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+        }`}
+      >
+        <ul className="flex flex-col gap-6 items-center p-4 bg-gray-800 border-b border-gray-700">
+          <li className="flex items-center gap-1 text-gray-300 hover:text-pink-400 cursor-pointer transition-colors duration-200">
+            <Home size={20} />
             Home
           </li>
-          <li className="flex items-center gap-1 hover:text-pink-400">
-            <Menu size={24} />
-            Menu
+          <li className="flex items-center gap-1 text-gray-300 hover:text-pink-400 cursor-pointer transition-colors duration-200">
+            <Mail size={20} />
+            Mail Me
           </li>
         </ul>
-      )}
+      </div>
     </nav>
   );
 };
