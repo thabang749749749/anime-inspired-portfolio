@@ -14,6 +14,53 @@ body {
 }
 
 @layer components {
+    .navbar {
+        @apply fixed top-0 left-0 w-full bg-gray-800 z-50 shadow-md;
+    }
+
+    .navbar-responsive {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .navbar-flex {
+        @apply flex items-center justify-between h-16 relative;
+    }
+
+    .navbar-desktop-items {
+        @apply flex items-center gap-1
+        text-gray-300
+        hover:text-pink-400
+        cursor-pointer
+        transition-colors
+        duration-200;
+    }
+
+    .navbar-items {
+        @apply flex items-center gap-1
+        text-gray-300
+        hover:text-pink-400
+        cursor-pointer
+        transition-colors
+        duration-200;
+    }
+
+    .nav-toggle-menu {
+        @apply inline-flex items-center justify-center p-2 rounded-md
+        text-gray-400
+        hover:text-white
+        hover:bg-gray-700
+        focus:outline-none;
+    }
+
+
+    .logo {
+        @apply text-cyan-400
+        font-bold text-xl
+        hover:text-cyan-300
+        transition-colors
+        duration-200;
+    }
+
     #hero {
         @apply relative z-10 min-h-dvh w-full border border-transparent;
         position: relative;
